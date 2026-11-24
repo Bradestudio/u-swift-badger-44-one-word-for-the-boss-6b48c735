@@ -75,6 +75,10 @@ def validate(text):
         raise ValueError("entry must not start or end with whitespace")
     if any(ch.isspace() for ch in text):
         raise ValueError("entry must be exactly one word (no spaces)")
+    if not any(ch.isalpha() for ch in text):
+        raise ValueError("entry must contain at least one letter")
+    if not text.isprintable():
+        raise ValueError("entry must contain only printable characters")
     if any(ord(ch) < 0x20 or ord(ch) == 0x7F for ch in text):
         raise ValueError("entry must not contain control characters")
     # Also reject invisible format characters (Unicode category Cf and
